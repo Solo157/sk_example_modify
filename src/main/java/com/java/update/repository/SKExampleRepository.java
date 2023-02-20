@@ -16,7 +16,7 @@ public interface SKExampleRepository extends CrudRepository<SKExample, Integer> 
     @Transactional(isolation = REPEATABLE_READ)
     @Query(value = """
             update sk_example_table set
-            obj = cast('{"current": '||(select sum(CAST((obj->>'current') as INT) + :add) from sk_example_table where id = :id)||'}' as JSON)
+            obj = CAST('{"current": '||(select SUM(CAST((obj->>'current') as INT) + :add) from sk_example_table where id = :id)||'}' as JSON)
             where id = :id
             """, nativeQuery = true)
     void executeAddValue(Integer id, Integer add);
