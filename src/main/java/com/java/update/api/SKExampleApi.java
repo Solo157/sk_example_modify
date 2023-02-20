@@ -4,12 +4,11 @@ import com.java.update.service.SKExampleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/modify")
 public class SKExampleApi {
 
     private final SKExampleService service;
@@ -18,7 +17,7 @@ public class SKExampleApi {
         this.service = service;
     }
 
-    @PostMapping(produces = "application/json")
+    @PostMapping(path = "/modify", produces = APPLICATION_JSON_VALUE)
     ResponseEntity<SKExampleResponse> modifySKExample(@RequestBody SKExampleRequest request) {
         try {
             return ResponseEntity.status(OK).body(service.modifySKExample(request));
