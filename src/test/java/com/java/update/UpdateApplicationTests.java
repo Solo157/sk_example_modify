@@ -1,6 +1,5 @@
 package com.java.update;
 
-import com.java.update.api.SKExampleApi;
 import com.java.update.api.SKExampleRequest;
 import com.java.update.repository.SKExample;
 import com.java.update.repository.SKExampleObj;

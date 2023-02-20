@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -19,31 +20,26 @@ public class SKExampleApiTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private ResultActions modifySKExample(SKExampleRequest request) throws Exception {
+        Gson gson = new Gson();
+        return this.mockMvc.perform(
+                post("/modify")
+                        .content(gson.toJson(request))
+                        .contentType(APPLICATION_JSON)
+        );
+    }
+
     @Test
     public void modifySKExample_skExampleIdIsInsideRange_returnOk() throws Exception {
-        Gson gson = new Gson();
-        SKExampleRequest request = new SKExampleRequest(1, 1);
-        this.mockMvc
-                .perform(
-                        post("/modify")
-                                .content(gson.toJson(request))
-                                .contentType(APPLICATION_JSON)
-                ).andExpect(
-                        status().isOk()
-                );
+        modifySKExample(
+                new SKExampleRequest(1, 1)
+        ).andExpect(status().isOk());
     }
 
     @Test
     public void modifySKExample_skExampleIdIsOutsideRange_returnStatusIsIAmATeapot() throws Exception {
-        Gson gson = new Gson();
-        SKExampleRequest request = new SKExampleRequest(2, 1);
-        this.mockMvc
-                .perform(
-                        post("/modify")
-                                .content(gson.toJson(request))
-                                .contentType(APPLICATION_JSON)
-                ).andExpect(
-                        status().isIAmATeapot()
-                );
+        modifySKExample(
+                new SKExampleRequest(2, 1)
+        ).andExpect(status().isIAmATeapot());
     }
 }

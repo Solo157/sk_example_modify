@@ -16,15 +16,15 @@ public class SKExampleService {
 
     public SKExampleResponse modifySKExample(SKExampleRequest request) throws IllegalArgumentException {
         if (repository.existsById(request.getId())) {
-            addValueToSKExample(request.getId(), request.getAdd());
+            increaseSKExampleObjCurrent(request.getId(), request.getValue());
             return new SKExampleResponse(repository.findById(request.getId()).get().getObj().getCurrent());
         } else throw new IllegalArgumentException();
     }
 
-    private synchronized void addValueToSKExample(Integer id, Integer value) {
+    private synchronized void increaseSKExampleObjCurrent(Integer id, Integer value) {
         while (true) {
             try {
-                repository.executeAddValue(id, value);
+                repository.increaseSKExampleObjCurrent(id, value);
                 break;
             } catch (Exception e) {
                 e.printStackTrace();

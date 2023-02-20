@@ -21,7 +21,7 @@ public class SKExampleApi {
     ResponseEntity<SKExampleResponse> modifySKExample(@RequestBody SKExampleRequest request) {
         try {
             return ResponseEntity.status(OK).body(service.modifySKExample(request));
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(I_AM_A_TEAPOT).build();
         }
     }
