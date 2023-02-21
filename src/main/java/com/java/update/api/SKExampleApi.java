@@ -4,6 +4,7 @@ import com.java.update.service.SKExampleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -18,9 +19,12 @@ public class SKExampleApi {
     }
 
     @PostMapping(path = "/modify", produces = APPLICATION_JSON_VALUE)
-    ResponseEntity<SKExampleResponse> modifySKExample(@RequestBody SKExampleRequest request) {
+    ResponseEntity<SKExampleResponse> modifySKExample(
+            @RequestParam SKExampleProcessingType type,
+            @RequestBody SKExampleRequest request
+    ) {
         try {
-            return ResponseEntity.status(OK).body(service.modifySKExample(request));
+            return ResponseEntity.status(OK).body(service.modifySKExample(request, type));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(I_AM_A_TEAPOT).build();
         }

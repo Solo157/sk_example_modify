@@ -1,4 +1,4 @@
-package com.java.update.repository;
+package com.java.update.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

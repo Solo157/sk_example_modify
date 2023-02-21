@@ -1,4 +1,4 @@
-package com.java.update.repository;
+package com.java.update.dao;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import static jakarta.persistence.GenerationType.IDENTITY;
