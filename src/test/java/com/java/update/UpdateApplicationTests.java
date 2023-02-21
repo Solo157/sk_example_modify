@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.crossstore.ChangeSetPersister;
+
 import java.util.concurrent.CountDownLatch;
 
 import static com.java.update.api.SKExampleProcessingType.*;
@@ -47,7 +49,11 @@ class UpdateApplicationTests {
 
 		for (int i = 0; i < threadCount; i++) {
 			new Thread(() -> {
-				service.modifySKExample(request, FOR_UPDATE);
+				try {
+					service.modifySKExample(request, FOR_UPDATE);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 				latch.countDown();
 			}).start();
 		}
@@ -65,7 +71,11 @@ class UpdateApplicationTests {
 
 		for (int i = 0; i < threadCount; i++) {
 			new Thread(() -> {
-				service.modifySKExample(request, ISOLATION);
+				try {
+					service.modifySKExample(request, ISOLATION);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 				latch.countDown();
 			}).start();
 		}
