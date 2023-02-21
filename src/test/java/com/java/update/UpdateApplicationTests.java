@@ -24,7 +24,7 @@ class UpdateApplicationTests {
 	@Autowired
 	SKExampleDAO<SKExample> repository;
 
-    @BeforeEach
+	@BeforeEach
 	void initDB() {
 		SKExample skExample = new SKExample();
 		SKExampleObj skExampleObj = new SKExampleObj();
